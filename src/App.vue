@@ -13,7 +13,7 @@ export default {
   props: {
 
   },
-  data () {
+  data() {
     return {
 
     }
@@ -24,7 +24,7 @@ export default {
   watch: {
 
   },
-  mounted () {
+  mounted() {
 
   },
   methods: {

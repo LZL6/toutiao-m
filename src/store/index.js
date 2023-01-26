@@ -7,12 +7,10 @@ export default new Vuex.Store({
   state: {
     // 一个对象，存储当前登录用户信息（token等数据）
     // user: JSON.parse(localStorage.getItem(TOKEN_KEY))
-    uesr: getItem(TOKEN_KEY)
-  },
-  getters: {
+    user: getItem(TOKEN_KEY)
   },
   mutations: {
-    setUser (state, data) {
+    setUser(state, data) {
       state.user = data
       // 为了防止刷新丢失，我们需要把数据备份到本地存储
       // localStorage.setItem(TOKEN_KEY, JSON.stringify(state.user))

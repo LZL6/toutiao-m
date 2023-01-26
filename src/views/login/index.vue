@@ -1,41 +1,44 @@
 <template>
-    <div class="login-container">
-        <!-- 导航栏 -->
-        <van-nav-bar class="page-nav-bar" title="登录" />
-        <!-- 导航栏 -->
-        <!-- 登录表单 -->
-        <van-form @submit="onSubmit" ref="loginForm">
-            <van-field name="mobile" placeholder="请输入手机号" v-model="user.mobile" :rules="userFormRules.mobile"
-                type="number" maxlength="11">
-                <template v-slot:left-icon>
-                    <i class="iconfont icon-shouji"></i>
-                </template>
-            </van-field>
-            <van-field name="code" placeholder="请输入验证码" v-model="user.code" :rules="userFormRules.code" type="number"
-                maxlength="6">
-                <template v-slot:left-icon>
-                    <i class="iconfont icon-yanzhengma"></i>
-                </template>
-                <template #button>
-                    <van-count-down :time="1000 * 5" format="ss s" v-if="isCountDownShow"
-                        @finish="isCountDownShow = false" />
-                    <van-button round size="small" type="default" class="send-sms-btn" native-type="button"
-                        @click="onSendSms" v-else>发送验证码</van-button>
-                </template>
-            </van-field>
-            <div class="login-btn-wrap">
-                <van-button block type="info" native-type="submit" class="login-btn">登录</van-button>
-            </div>
-        </van-form>
-        <!-- 登录表单 -->
-    </div>
+  <div class="login-container">
+    <!-- 导航栏 -->
+    <van-nav-bar class="page-nav-bar" title="登录">
+      <template #left>
+        <van-icon name="cross" @click="$router.back()" />
+      </template>
+    </van-nav-bar>
+    <!-- 导航栏 -->
+    <!-- 登录表单 -->
+    <van-form @submit="onSubmit" ref="loginForm">
+      <van-field name="mobile" placeholder="请输入手机号" v-model="user.mobile" :rules="userFormRules.mobile" type="number"
+        maxlength="11">
+        <template v-slot:left-icon>
+          <i class="iconfont icon-shouji"></i>
+        </template>
+      </van-field>
+      <van-field name="code" placeholder="请输入验证码" v-model="user.code" :rules="userFormRules.code" type="number"
+        maxlength="6">
+        <template v-slot:left-icon>
+          <i class="iconfont icon-yanzhengma"></i>
+        </template>
+        <template #button>
+          <van-count-down :time="1000 * 5" format="ss s" v-if="isCountDownShow" @finish="isCountDownShow = false" />
+          <van-button round size="small" type="default" class="send-sms-btn" native-type="button" @click="onSendSms"
+            v-else>发送验证码</van-button>
+        </template>
+      </van-field>
+      <div class="login-btn-wrap">
+        <van-button block type="info" native-type="submit" class="login-btn">登录</van-button>
+      </div>
+    </van-form>
+    <!-- 登录表单 -->
+  </div>
 </template>
 <script>
 import { login, sendSms } from '@/api/user'
 export default {
   name: 'LoginIndex',
 
-  data () {
+  data() {
     return {
       user: {
         // 手机号
@@ -70,11 +73,11 @@ export default {
   watch: {
 
   },
-  mounted () {
+  mounted() {
 
   },
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       // 1.获取表单数据
       const user = this.user
       // 2.表单验证
@@ -89,6 +92,9 @@ export default {
         // console.log('登录成功', res);
         this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
+        // 登录成功，跳转回原来的页面
+        // back的方式不严谨，后面讲功能优化的时候再说
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           console.log('手机号或者验证码错误')
@@ -100,7 +106,7 @@ export default {
       }
       // 4.根据请求响应结果处理后续操作
     },
-    async onSendSms () {
+    async onSendSms() {
       // 检验手机号
       try {
         await this.$refs.loginForm.validate('mobile')
@@ -127,26 +133,26 @@ export default {
 </script>
 <style lang='less' scoped>
 .login-container {
-    .iconfont {
-        font-size: 37px;
-    }
+  .iconfont {
+    font-size: 37px;
+  }
 
-    .send-sms-btn {
-        width: 152px;
-        height: 46px;
-        line-height: 46px;
-        font-size: 22px;
-        background-color: #ededed;
-        color: #666;
-    }
+  .send-sms-btn {
+    width: 152px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 22px;
+    background-color: #ededed;
+    color: #666;
+  }
 
-    .login-btn-wrap {
-        padding: 53px 33px;
+  .login-btn-wrap {
+    padding: 53px 33px;
 
-        .login-btn {
-            background-color: #6db4fb;
-            border: none;
-        }
+    .login-btn {
+      background-color: #6db4fb;
+      border: none;
     }
+  }
 }
 </style>
