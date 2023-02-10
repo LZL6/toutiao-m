@@ -3,7 +3,7 @@
     <!-- 导航栏 -->
     <van-nav-bar class="page-nav-bar" title="登录">
       <template #left>
-        <van-icon name="cross" @click="$router.back()" />
+        <van-icon name="cross" @click="$router.push('/my')" />
       </template>
     </van-nav-bar>
     <!-- 导航栏 -->
@@ -31,6 +31,13 @@
       </div>
     </van-form>
     <!-- 登录表单 -->
+
+    <!-- 提示 -->
+    <div class="toast">
+      <p>收不到验证码的可以用下面这个内部验证码</p>
+      <span>246810</span>
+    </div>
+    <!-- /提示 -->
   </div>
 </template>
 <script>
@@ -94,7 +101,7 @@ export default {
         this.$toast.success('登录成功')
         // 登录成功，跳转回原来的页面
         // back的方式不严谨，后面讲功能优化的时候再说
-        this.$router.back()
+        this.$router.push('my')
       } catch (err) {
         if (err.response.status === 400) {
           console.log('手机号或者验证码错误')
@@ -138,7 +145,7 @@ export default {
   }
 
   .send-sms-btn {
-    width: 152px;
+    // width: 152px;
     height: 46px;
     line-height: 46px;
     font-size: 22px;
@@ -153,6 +160,17 @@ export default {
       background-color: #6db4fb;
       border: none;
     }
+  }
+
+  .toast {
+    margin-top: 60px;
+    padding: 10px;
+    font-size: 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6d6c6c;
   }
 }
 </style>

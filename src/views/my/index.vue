@@ -8,7 +8,7 @@
                     <div class="name">{{ userInfo.name }}</div>
                 </div>
                 <div class="right">
-                    <van-button size="mini" round>编辑资料</van-button>
+                    <van-button size="mini" round to="/user/profile">编辑资料</van-button>
                 </div>
             </div>
             <div class="data-stats">
@@ -42,11 +42,21 @@
 
         <!-- 宫格导航 -->
         <van-grid :column-num="2" class="grid-nav" clickable>
-            <van-grid-item class="grid-item">
+            <van-grid-item class="grid-item" @click="$router.push({
+                name: 'collections-histories',
+                query: {
+                    active: 0
+                }
+            })">
                 <i slot="icon" class="iconfont icon-shoucang"></i>
                 <span slot="text" class="text">收藏</span>
             </van-grid-item>
-            <van-grid-item class="grid-item">
+            <van-grid-item class="grid-item" @click="$router.push({
+                name: 'collections-histories',
+                query: {
+                    active: 1
+                }
+            })">
                 <i slot="icon" class="iconfont icon-lishi"></i>
                 <span slot="text" class="text">历史</span>
             </van-grid-item>
@@ -59,11 +69,16 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { getUserInfo } from '@/api/user';
+import { getUserInfo } from '@/api/user'
 export default {
     name: 'MyIndex',
     components: {
 
+    },
+    beforeRouteLeave(to, from, next) {
+        // 设置下一个路由的 meta
+        to.meta.keepAlive = false;  // 不让 A 缓存，即刷新
+        next();
     },
     data() {
         return {
@@ -74,7 +89,7 @@ export default {
     computed: {
         ...mapState(['user'])
     },
-    created() {
+    async created() {
         // 如果用户登录了，则请求加载用户信息数据
         if (this.user) {
             this.loadUserInfo()

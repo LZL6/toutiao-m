@@ -1,7 +1,9 @@
 <template>
     <div class="layout-container">
         <!-- 子路由出口 -->
-        <RouterView></RouterView>
+
+        <router-view />
+
         <!-- 子路由出口 -->
         <!-- 标签导航栏 -->
         <van-tabbar class="layout-tabbar" route>
