@@ -68,59 +68,60 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 import { getUserInfo } from '@/api/user'
 export default {
-    name: 'MyIndex',
-    components: {
+  name: 'MyIndex',
+  components: {
 
-    },
-    beforeRouteLeave(to, from, next) {
-        // 设置下一个路由的 meta
-        to.meta.keepAlive = false;  // 不让 A 缓存，即刷新
-        next();
-    },
-    data() {
-        return {
-            userInfo: {}   // 用户信息
-        }
-    },
+  },
+  beforeRouteLeave (to, from, next) {
+    // 设置下一个路由的 meta
+    to.meta.keepAlive = false // 不让 A 缓存，即刷新
+    next()
+  },
 
-    computed: {
-        ...mapState(['user'])
-    },
-    async created() {
-        // 如果用户登录了，则请求加载用户信息数据
-        if (this.user) {
-            this.loadUserInfo()
-        }
-    },
-    methods: {
-        onLogout() {
-            // 退出提示
-            // 在组件中需要使用this.$dialog 来调用弹框组件
-            this.$dialog.confirm({
-                title: '确认退出吗',
-            }).then(() => {
-                // on confirm
-                // 确认退出：清除登录状态（容器中的user+本地存储中的user）
-                this.$store.commit('setUser', null)
-            }).catch(() => {
-                // on cancel
-            });
-        },
-        async loadUserInfo() {
-            try {
-                const res = await getUserInfo()
-                // console.log(res);
-                this.userInfo = res.data.data
-                // console.log(this.userInfo);
-            } catch (err) {
-                this.$toast('获取数据失败')
-            }
-        }
+  data () {
+    return {
+      userInfo: {} // 用户信息
     }
-};
+  },
+
+  computed: {
+    ...mapState(['user'])
+  },
+  async created () {
+    // 如果用户登录了，则请求加载用户信息数据
+    if (this.user) {
+      this.loadUserInfo()
+    }
+  },
+  methods: {
+    onLogout () {
+      // 退出提示
+      // 在组件中需要使用this.$dialog 来调用弹框组件
+      this.$dialog.confirm({
+        title: '确认退出吗'
+      }).then(() => {
+        // on confirm
+        // 确认退出：清除登录状态（容器中的user+本地存储中的user）
+        this.$store.commit('setUser', null)
+      }).catch(() => {
+        // on cancel
+      })
+    },
+    async loadUserInfo () {
+      try {
+        const res = await getUserInfo()
+        // console.log(res);
+        this.userInfo = res.data.data
+        // console.log(this.userInfo);
+      } catch (err) {
+        this.$toast('获取数据失败')
+      }
+    }
+  }
+}
 </script>
 <style lang='less' scoped>
 .my-container {
@@ -185,7 +186,6 @@ export default {
         .data-stats {
             display: flex;
             // background-color: #ccc;
-
 
             .data-item {
                 color: #fff;

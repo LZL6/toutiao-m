@@ -1,19 +1,19 @@
 <template>
-    <div class="layout-container">
-        <!-- 子路由出口 -->
+  <div class="layout-container">
+    <!-- 子路由出口 -->
 
-        <router-view />
+    <router-view />
 
-        <!-- 子路由出口 -->
-        <!-- 标签导航栏 -->
-        <van-tabbar class="layout-tabbar" route>
-            <van-tabbar-item to="/">
-                <template #icon>
-                    <i class="iconfont icon-shouye"></i>
-                </template>
-                <span class="text">首页</span>
-            </van-tabbar-item>
-            <van-tabbar-item to="/qa">
+    <!-- 子路由出口 -->
+    <!-- 标签导航栏 -->
+    <van-tabbar class="layout-tabbar" route>
+      <van-tabbar-item to="/">
+        <template #icon>
+          <i class="iconfont icon-shouye"></i>
+        </template>
+        <span class="text">首页</span>
+      </van-tabbar-item>
+      <!-- <van-tabbar-item to="/qa">
                 <template #icon>
                     <i class="iconfont icon-wenda"></i>
                 </template>
@@ -24,58 +24,58 @@
                     <i class="iconfont icon-shipin"></i>
                 </template>
                 <span class="text">视频</span>
-            </van-tabbar-item>
-            <van-tabbar-item to="/my">
-                <template #icon>
-                    <i class="iconfont icon-wode"></i>
-                </template>
-                <span class="text">{{ $store.state.user ? '我的' : '未登录' }}</span>
-            </van-tabbar-item>
-        </van-tabbar>
-        <!-- 标签导航栏 -->
-    </div>
+            </van-tabbar-item> -->
+      <van-tabbar-item to="/my">
+        <template #icon>
+          <i class="iconfont icon-wode"></i>
+        </template>
+        <span class="text">{{ $store.state.user ? "我的" : "未登录" }}</span>
+      </van-tabbar-item>
+    </van-tabbar>
+    <!-- 标签导航栏 -->
+  </div>
 </template>
 <script>
 
 
 export default {
-    name: 'layoutIndex',
-    components: {
+  name: 'layoutIndex',
+  components: {
 
-    },
-    mixins: [],
-    props: {
+  },
+  mixins: [],
+  props: {
 
-    },
-    data() {
-        return {
-
-        }
-    },
-    computed: {
-
-    },
-    watch: {
-
-    },
-    mounted() {
-
-    },
-    methods: {
+  },
+  data() {
+    return {
 
     }
+  },
+  computed: {
+
+  },
+  watch: {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
+  }
 };
 </script>
 <style lang='less' scoped>
 .layout-container {
-    .layout-tabbar {
-        i.iconfont {
-            font-size: 40px;
-        }
-
-        span.text {
-            font-size: 20px;
-        }
+  .layout-tabbar {
+    i.iconfont {
+      font-size: 40px;
     }
+
+    span.text {
+      font-size: 20px;
+    }
+  }
 }
 </style>
